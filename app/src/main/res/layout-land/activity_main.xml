@@ -13,8 +13,7 @@
             android:ems="10"
             android:id="@+id/result" android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:focusable="false"
             android:focusableInTouchMode="false" tools:text="-8.238328"/>
     <Button
@@ -144,9 +143,8 @@
             android:inputType="numberSigned|numberDecimal"
             android:ems="10"
             android:id="@+id/newNumber"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/result" android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
+            android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            android:focusableInTouchMode="true"/>
+            android:focusableInTouchMode="true" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/result" app:layout_constraintBaseline_toBaselineOf="@+id/result"/>
 </android.support.constraint.ConstraintLayout>
