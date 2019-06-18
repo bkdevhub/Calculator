@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,9 +16,9 @@ class MainActivity : AppCompatActivity() {
     private val displayOperation by lazy(LazyThreadSafetyMode.NONE) { findViewById<TextView>(R.id.operation) }
 
     //Variables
-    private val operand1: Double? = null
-    private val operand2: Double = 0.0
-    private val pendingOperation = "="
+    private var operand1: Double? = null
+    private var operand2: Double = 0.0
+    private var pendingOperation = "="
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,9 +67,53 @@ class MainActivity : AppCompatActivity() {
         buttonDot.setOnClickListener(listener)
 
 
+        val opListener = View.OnClickListener { v ->
+            val op = (v as Button).text.toString()
+            val value = newNumber.text.toString()
+
+            if (newNumber.text.isNotEmpty()) {
+                performOperation(value, op)
+            }
+            pendingOperation = op
+            displayOperation.text = pendingOperation
+        }
+
+        buttonMinus.setOnClickListener(opListener)
+        buttonPlus.setOnClickListener(opListener)
+        buttonEquals.setOnClickListener(opListener)
+        buttonDivide.setOnClickListener(opListener)
+        buttonMultiply.setOnClickListener(opListener)
     }
 
-    private fun test() {
+    private fun performOperation(value: String, operation: String) {
+        displayOperation.text = operation
 
+
+        if (operand1 == null){
+            operand1 == value.toDouble()
+        }else
+        {
+            operand2 == value.toDouble()
+            if (pendingOperation == "=") {
+                pendingOperation = operation
+            }
+
+            when (pendingOperation){
+                "=" -> operand1 = operand2
+                "/" -> if (operand2 == 0.0) {
+                    operand1 = Double.NaN //handle attempt to divide by zero
+                }else {
+                    operand1 = operand1!! / operand2
+                }
+                "*" -> operand1 = operand1!! * operand2
+                "+" -> operand1 = operand1!! + operand2
+                "-" -> operand1 = operand1!! - operand2
+            }
+            result.setText(operand1.toString())
+            newNumber.setText("")
+        }
+
+
+        displayOperation.text = operation
     }
 }
